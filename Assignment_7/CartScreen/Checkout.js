@@ -4,21 +4,23 @@ import { useCart } from "../CartContext";
 const CartList = ({item}) => {
     const {dispatch} = useCart()
 
+    const removeIcon = require("../assets/remove.png")
+
     const removeFromCart = () => {
         dispatch({type: 'REMOVE_FROM_CART', payload: item.id})
     }
 
     return(
     <View style={styles.cartList}>
-        <Image source={item.image} style={styles.productImage} />
+        <Image source={{uri: item.image}} style={styles.productImage} />
         <View style={styles.productDetails}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.description}>{item.description}</Text>
-            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.name}>{item.title}</Text>
+            {/* <Text style={styles.description}>{item.description}</Text> */}
+            <Text style={styles.price}>${item.price.toFixed(2)}</Text>
         </View>
         <View>
             <TouchableOpacity style={styles.removeButton} onPress={removeFromCart}>
-                <Image source={item.remove} style={styles.removeImage} />
+                <Image source={removeIcon} style={styles.removeImage} />
             </TouchableOpacity>
         </View>
     </View>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Modal, Text, ScrollView } from 'react-native';
 
-export default function Header() {
+export default function Header( {navigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -18,7 +18,7 @@ export default function Header() {
       </View>
       <View style={styles.iconsContainer}>
         <Image style={styles.search} source={require('../assets/Search.png')} />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cart')}>
           <Image style={styles.shoppingBag} source={require('../assets/shoppingBag.png')} />
         </TouchableOpacity>
       </View>
