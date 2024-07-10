@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Modal, Text, ScrollView } from 'react-native';
 
-export default function Header( {navigation}) {
+export default function Header({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -29,19 +29,23 @@ export default function Header( {navigation}) {
         visible={sidebarVisible}
         onRequestClose={toggleSidebar}
       >
-        <View style={styles.sidebarContainer}>
-          <TouchableOpacity onPress={toggleSidebar}>
-            <Image style={styles.closeIcon} source={require('../assets/Close.png')} />
+        <TouchableOpacity style={styles.overlay} onPress={toggleSidebar}>
+          <TouchableOpacity activeOpacity={1} style={styles.sidebarContainer}>
+            <TouchableOpacity onPress={toggleSidebar}>
+              <Image style={styles.closeIcon} source={require('../assets/Close.png')} />
+            </TouchableOpacity>
+            <Text style={styles.username}>Eric Atsu</Text>
+            <View style={styles.underline} />
+            <ScrollView>
+              <Text style={styles.sidebarItem}>Store</Text>
+              <Text style={styles.sidebarItem}>Locations</Text>
+              <Text style={styles.sidebarItem}>Blog</Text>
+              <Text style={styles.sidebarItem}>Clothing</Text>
+              <Text style={styles.sidebarItem}>Jewelry</Text>
+              <Text style={styles.sidebarItem}>Electronics</Text>
+            </ScrollView>
           </TouchableOpacity>
-          <ScrollView>
-            <Text style={styles.sidebarItem}>Store</Text>
-            <Text style={styles.sidebarItem}>Locations</Text>
-            <Text style={styles.sidebarItem}>Blog</Text>
-            <Text style={styles.sidebarItem}>Clothing</Text>
-            <Text style={styles.sidebarItem}>Jewelry</Text>
-            <Text style={styles.sidebarItem}>Electronics</Text>
-          </ScrollView>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
@@ -82,20 +86,34 @@ const styles = StyleSheet.create({
   button: {
     position: 'relative',
   },
-  sidebarContainer: {
+  overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-start',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  sidebarContainer: {
+    width: '80%',
+    height: '100%',
+    backgroundColor: '#f0f0f0',
     padding: 20,
+    position: 'absolute',
+    left: 0,
   },
   closeIcon: {
     width: 30,
     height: 30,
     marginBottom: 20,
   },
-  sidebarItem: {
-    fontSize: 20,
+  username: {
+    fontSize: 34,
+  },
+  underline: {
+    width: '100%',
+    height: 2,
+    backgroundColor: 'orange',
     marginVertical: 10,
-    color: '#fff',
+  },
+  sidebarItem: {
+    fontSize: 22,
+    marginVertical: 20,
   },
 });

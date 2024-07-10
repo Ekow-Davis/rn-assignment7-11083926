@@ -53,6 +53,7 @@ export default function ProductScreen({ route }) {
             <Text style={{fontSize: 18, fontWeight: 200, marginHorizontal: 10}}> Iron at a maximum of 110&deg;C/230&deg;F </Text>
           </View>
         </View>
+        
         <View style={{flex: 1, width: 330, height: 1, backgroundColor: '#ccc', marginVertical: 10}}/>
 
         <View style={{marginTop:10, marginBottom: 50}}>
@@ -69,8 +70,9 @@ export default function ProductScreen({ route }) {
       <View style={styles.footercontainer}>
         <TouchableOpacity onPress={addToCart}>
           <View style={styles.totalfooterContainer}>
-                <Image style={{tintColor: 'white'}} source={require('../assets/Plus.png')} />
-                <Text style={{color: 'white', fontSize: 21, }}>Add to Cart</Text>
+            <Image style={{tintColor: 'white'}} source={require('../assets/Plus.png')} />
+            <Text style={{color: 'white', fontSize: 21, }}>Add to Cart</Text>
+            <Image source={require("../assets/Heart.png")} style={{tintColor: 'white', marginLeft: 120, height: 30, width: 30,}} />
             </View>
         </TouchableOpacity>
             
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
+    backgroundColor: '#ffffff'
   },
 
   footercontainer: {
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: 360,
-    height: 450,
+    height: 480,
     resize: 'fit',
     marginBottom: 16,
   },
