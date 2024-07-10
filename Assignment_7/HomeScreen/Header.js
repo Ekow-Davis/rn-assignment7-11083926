@@ -1,73 +1,101 @@
-import React from "react";
-import { StyleSheet, View, Image, TouchableOpacity} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity, Modal, Text, ScrollView } from 'react-native';
 
-export default function Header(){
-    const navigation = useNavigation();
+export default function Header() {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
-    return(
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  return (
     <View style={styles.container}>
-        <View>
-            <Image style={styles.menu} source={require('../assets/Menu.png')}></Image>
-        </View>
-        <View>
-            <Image style={styles.logo} source={require('../assets/Logo.png')}></Image>
-        </View>
+      <TouchableOpacity onPress={toggleSidebar}>
+        <Image style={styles.menu} source={require('../assets/Menu.png')} />
+      </TouchableOpacity>
+      <View>
+        <Image style={styles.logo} source={require('../assets/Logo.png')} />
+      </View>
+      <View style={styles.iconsContainer}>
+        <Image style={styles.search} source={require('../assets/Search.png')} />
+        <TouchableOpacity style={styles.button}>
+          <Image style={styles.shoppingBag} source={require('../assets/shoppingBag.png')} />
+        </TouchableOpacity>
+      </View>
 
-        <View style={styles.iconsContainer}>
-            <Image style={styles.search} source={require('../assets/Search.png')}></Image>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cart')}>
-            <Image style={styles.shoppingBag} source={require('../assets/shoppingBag.png')}></Image>
-            </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={sidebarVisible}
+        onRequestClose={toggleSidebar}
+      >
+        <View style={styles.sidebarContainer}>
+          <TouchableOpacity onPress={toggleSidebar}>
+            <Image style={styles.closeIcon} source={require('../assets/Close.png')} />
+          </TouchableOpacity>
+          <ScrollView>
+            <Text style={styles.sidebarItem}>Store</Text>
+            <Text style={styles.sidebarItem}>Locations</Text>
+            <Text style={styles.sidebarItem}>Blog</Text>
+            <Text style={styles.sidebarItem}>Clothing</Text>
+            <Text style={styles.sidebarItem}>Jewelry</Text>
+            <Text style={styles.sidebarItem}>Electronics</Text>
+          </ScrollView>
         </View>
+      </Modal>
     </View>
-    )
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingTop: 60,
-        paddingBottom: 10,
-        flexDirection: 'row',
-        borderColor: 'black',
-        width: '100%',
-    },
-
-    menu: {
-        width: 30,
-        height:33
-    },
-
-    logo:{
-        width: 99,
-        height: 40,
-        left: 21
-    },
-    
-    iconsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-
-    search:{
-        width: 30,
-        height: 30, 
-        marginRight: 20
-    },
-
-    shoppingBag: {
-        width: 30,
-        height: 30
-    },
-    
-    button: {
-        position: 'relative',
-    }
-})
-
-
-
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 10,
+    width: '100%',
+    backgroundColor: '#fff',
+  },
+  menu: {
+    width: 30,
+    height: 33,
+  },
+  logo: {
+    width: 99,
+    height: 40,
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  search: {
+    width: 30,
+    height: 30,
+    marginRight: 20,
+  },
+  shoppingBag: {
+    width: 30,
+    height: 30,
+  },
+  button: {
+    position: 'relative',
+  },
+  sidebarContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-start',
+    padding: 20,
+  },
+  closeIcon: {
+    width: 30,
+    height: 30,
+    marginBottom: 20,
+  },
+  sidebarItem: {
+    fontSize: 20,
+    marginVertical: 10,
+    color: '#fff',
+  },
+});

@@ -10,7 +10,7 @@ function HomeScreen({navigation}){
         <ScrollView contentContainerStyle={styles.scroll}>
         <Header navigation={navigation}/>
         <OurStory/>
-        <Products/>
+        <Products navigation={navigation}/>
         </ScrollView>
     </View>
     )

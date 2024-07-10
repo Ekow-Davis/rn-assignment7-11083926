@@ -2,77 +2,76 @@ import { StyleSheet, View, Text, Image} from "react-native";
 import { useCart } from "../CartContext";
 
 export default function Footer(){
-    const {cart} = useCart();
+    const { cart } = useCart();
+  const totalSum = cart.reduce((sum, item) => sum + item.price, 0);
 
-    const totalAmount = cart.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')), 0)
-    return(
-        <View style={styles.footer}>
-            <View style={styles.checkoutButton}>
-                <Image style={styles.shoppingBag} source={require('../assets/shoppingBag.png')}></Image>
-                <Text style={styles.checkout}>CHECKOUT</Text>
-            </View>
-
-            <View style={styles.total}>
-                <Text style={styles.totalText}>EST. TOTAL</Text>
-                <Text style={styles.totalAmount}>${totalAmount.toFixed(0)}</Text>
-            </View>
-        </View>
-    )
+  return (
+    <View style={styles.container}>
+      {cart.length > 0 ? (
+        cart.map(item => <CartList key={item.id} item={item} />)
+      ) : (
+        <Text>Your cart is empty</Text>
+      )}
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalText}>Total: ${totalSum.toFixed(2)}</Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 15,
-        height: 150
-    },
-
-    checkoutButton: {
-        flexDirection: 'row',
-        backgroundColor: '#000000',
-        borderWidth: 200,
-        borderTopWidth: 32,
-        borderBottomWidth: 32,
-        height: 100,
-        left: 19,
-        top: 32,
-    },
-
-    shoppingBag: {
-        tintColor: 'white',
-        right: 40
-    },
-
-    checkout: {
-        color: '#FFFFFF',
-        fontSize: 24,
-        fontWeight: '300',
-        letterSpacing: 6,
-        width: 172,
-        right: 5
-        
-    },
-
-    totalText: {
-        fontSize: 18,
-        fontWeight: '300',
-        color: '#000000',
-        bottom: 10,
-        right: 345,
-        letterSpacing: 4
-    },
-
-    totalAmount:{
-        fontSize: 20,
-        fontWeight: '400',
-        color: '#D18035',
-        bottom: 34,
-        right: 35,
-        letterSpacing: 4
-    }
-
-
-
-
-})
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  cartList: {
+    flexDirection: 'row',
+    padding: 13,
+    alignItems: 'center',
+    position: 'relative',
+    top: 15,
+  },
+  productImage: {
+    width: 90,
+    height: 120,
+    marginRight: 11,
+  },
+  productDetails: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 15,
+    letterSpacing: 4,
+    fontWeight: '400',
+  },
+  description: {
+    fontSize: 15,
+    fontWeight: '400',
+    color: '#737373',
+  },
+  price: {
+    fontSize: 15,
+    color: '#D18035',
+  },
+  removeButton: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    right: 30,
+  },
+  removeImage: {
+    width: 20,
+    height: 20,
+  },
+  totalContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  totalText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#D18035',
+  },
+});
